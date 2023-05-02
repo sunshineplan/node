@@ -1,0 +1,29 @@
+name: Coverage
+
+on:
+  workflow_run:
+    workflows: [ Test ]
+    branches: [ main ]
+    types: 
+      - completed
+
+jobs:
+  coverage:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: stable
+
+      - name: Send Coverage
+        env:
+          COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          go test -race -covermode atomic -coverprofile=covprofile ./...
+          go install github.com/mattn/goveralls@latest
+          goveralls -coverprofile=covprofile -service=github
