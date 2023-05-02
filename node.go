@@ -41,7 +41,7 @@ type TextNode interface {
 
 // HtmlNode is an interface representing an HTML node.
 type HtmlNode interface {
-	// Raw returns orgin *html.Node.
+	// Raw returns origin *html.Node.
 	Raw() *html.Node
 	// ToNode converts HtmlNode to Node.
 	ToNode() Node
