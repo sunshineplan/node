@@ -143,9 +143,6 @@ func (n *htmlNode) Data() string {
 }
 
 func (n *htmlNode) Attrs() Attributes {
-	if len(n.Node.Attr) == 0 {
-		return nil
-	}
 	attrs := make(attributes)
 	for _, i := range n.Node.Attr {
 		if _, ok := attrs[i.Key]; !ok {
@@ -155,11 +152,9 @@ func (n *htmlNode) Attrs() Attributes {
 	return attrs
 }
 
-func (n *htmlNode) HasAttr(attr string) (ok bool) {
-	if attrs := n.Attrs(); attrs != nil {
-		_, ok = n.Attrs().Get(attr)
-	}
-	return
+func (n *htmlNode) HasAttr(attr string) bool {
+	_, ok := n.Attrs().Get(attr)
+	return ok
 }
 
 func (n *htmlNode) HTML() string {
