@@ -158,7 +158,10 @@ func (n *htmlNode) FindAll(method FindMethod, tag TagFilter, filters ...Filter) 
 }
 
 func (n *htmlNode) FindString(method FindMethod, filter StringFilter) TextNode {
-	return n.findOnce(method, true, nil, filter).ToTextNode()
+	if node := n.findOnce(method, true, nil, filter); node != nil {
+		return node.ToTextNode()
+	}
+	return nil
 }
 
 func (n *htmlNode) FindStringN(method FindMethod, limit int, filter StringFilter) (res []TextNode) {
