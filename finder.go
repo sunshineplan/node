@@ -99,7 +99,7 @@ func (n *htmlNode) find(method FindMethod, text bool, limit int, tag TagFilter, 
 				f(node, filters...)
 			}
 		case NoRecursive:
-			if raw := node.Raw(); n.Raw() != raw {
+			if raw := node.Raw(); n.Raw() == raw {
 				f(node.FirstChild(), filters...)
 			} else {
 				f(node.NextSibling(), filters...)
