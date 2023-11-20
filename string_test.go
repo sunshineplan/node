@@ -8,10 +8,8 @@ import (
 func TestString(t *testing.T) {
 	if nodes := soup.FindAllString(0, String("Elsie")); len(nodes) != 1 {
 		t.Errorf("expected nodes %d; got %d", 1, len(nodes))
-	} else {
-		if text := nodes[0].String(); text != "Elsie" {
-			t.Errorf("expected string %q; got %q", "Elsie", text)
-		}
+	} else if text := nodes[0].String(); text != "Elsie" {
+		t.Errorf("expected string %q; got %q", "Elsie", text)
 	}
 	if nodes := soup.FindAllString(0, String([]string{"Tillie", "Elsie", "Lacie"})); len(nodes) != 3 {
 		t.Errorf("expected nodes %d; got %d", 3, len(nodes))
@@ -49,9 +47,7 @@ func TestString(t *testing.T) {
 	}
 	if nodes := soup.FindAllString(0, Text("Elsie")); len(nodes) != 1 {
 		t.Errorf("expected nodes %d; got %d", 1, len(nodes))
-	} else {
-		if text := nodes[0].String(); text != "Elsie" {
-			t.Errorf("expected string %q; got %q", "Elsie", text)
-		}
+	} else if text := nodes[0].String(); text != "Elsie" {
+		t.Errorf("expected string %q; got %q", "Elsie", text)
 	}
 }

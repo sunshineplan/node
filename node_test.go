@@ -2,7 +2,8 @@ package node
 
 import "testing"
 
-var soup, _ = ParseHTML(`<html><head><title>The Dormouse's story</title></head>
+var (
+	soup, _ = ParseHTML(`<html><head><title>The Dormouse's story</title></head>
 <body>
 <p class="title"><b>The Dormouse's story</b></p>
 
@@ -14,6 +15,11 @@ and they lived at the bottom of a well.</p>
 
 <p class="story">...</p>
 `)
+
+	elsie  = `<a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>`
+	lacie  = `<a href="http://example.com/lacie" class="sister" id="link2">Lacie</a>`
+	tillie = `<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>`
+)
 
 func TestSoup(t *testing.T) {
 	title := soup.Find(0, Title)
@@ -36,8 +42,8 @@ func TestSoup(t *testing.T) {
 	if class, _ := p.Attrs().Get("class"); class != "title" {
 		t.Errorf("expected class %q; got %q", "title", class)
 	}
-	if a := soup.Find(0, A).Readable(); a != `<a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>` {
-		t.Errorf("expected a %q; got %q", `<a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>`, a)
+	if a := soup.Find(0, A).Readable(); a != elsie {
+		t.Errorf("expected a %q; got %q", elsie, a)
 	}
 	if a := soup.FindAll(0, A); len(a) != 3 {
 		t.Errorf("expected a %d; got %d", 3, len(a))
@@ -49,8 +55,8 @@ func TestSoup(t *testing.T) {
 			}
 		}
 	}
-	if a := soup.Find(0, nil, Id("link3")).Readable(); a != `<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>` {
-		t.Errorf("expected a %q; got %q", `<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>`, a)
+	if a := soup.Find(0, nil, Id("link3")).Readable(); a != tillie {
+		t.Errorf("expected a %q; got %q", tillie, a)
 	}
 	s := `The Dormouse's story
 
@@ -176,17 +182,17 @@ func TestGoingUp(t *testing.T) {
 func TestGoingSideways(t *testing.T) {
 	if node := soup.Find(0, A).NextSibling(); node.Readable() != ",\n" {
 		t.Errorf("expected string %q; got %q", ",\n ", node.GetText())
-	} else if html := node.NextSibling().Readable(); html != `<a href="http://example.com/lacie" class="sister" id="link2">Lacie</a>` {
-		t.Errorf("expected html %q; got %q", `<a href="http://example.com/lacie" class="sister" id="link2">Lacie</a>`, html)
+	} else if html := node.NextSibling().Readable(); html != lacie {
+		t.Errorf("expected html %q; got %q", lacie, html)
 	}
 	if nextSiblings := soup.Find(0, A).NextSiblings(); len(nextSiblings) != 5 {
 		t.Errorf("expected next_siblings %d; got %d", 5, len(nextSiblings))
 	} else {
 		expected := []string{
 			",\n",
-			`<a href="http://example.com/lacie" class="sister" id="link2">Lacie</a>`,
+			lacie,
 			" and\n",
-			`<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>`,
+			tillie,
 			";\nand they lived at the bottom of a well.",
 		}
 		for i, nextSibling := range nextSiblings {
@@ -200,9 +206,9 @@ func TestGoingSideways(t *testing.T) {
 	} else {
 		expected := []string{
 			" and\n",
-			`<a href="http://example.com/lacie" class="sister" id="link2">Lacie</a>`,
+			lacie,
 			",\n",
-			`<a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>`,
+			elsie,
 			"Once upon a time there were three little sisters; and their names were\n",
 		}
 		for i, nextSibling := range prevSiblings {
@@ -215,8 +221,8 @@ func TestGoingSideways(t *testing.T) {
 
 func TestGoingBackAndForth(t *testing.T) {
 	a := soup.Find(0, A, Id("link3"))
-	if html := a.Readable(); html != `<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>` {
-		t.Errorf("expected html %q; got %q", `<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>`, html)
+	if html := a.Readable(); html != tillie {
+		t.Errorf("expected html %q; got %q", tillie, html)
 	}
 	if html := a.NextSibling().Readable(); html != ";\nand they lived at the bottom of a well." {
 		t.Errorf("expected html %q; got %q", ";\nand they lived at the bottom of a well.", html)
@@ -227,8 +233,8 @@ func TestGoingBackAndForth(t *testing.T) {
 	if html := a.PrevNode().Readable(); html != " and\n" {
 		t.Errorf("expected html %q; got %q", " and\n", html)
 	}
-	if html := a.PrevNode().NextNode().Readable(); html != `<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>` {
-		t.Errorf("expected html %q; got %q", `<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>`, html)
+	if html := a.PrevNode().NextNode().Readable(); html != tillie {
+		t.Errorf("expected html %q; got %q", tillie, html)
 	}
 	if nextNodes := a.NextNodes(); len(nextNodes) != 6 {
 		t.Errorf("expected next_elements %d; got %d", 6, len(nextNodes))

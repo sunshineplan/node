@@ -11,10 +11,8 @@ import (
 func TestFilter(t *testing.T) {
 	if nodes := soup.FindAll(0, B); len(nodes) != 1 {
 		t.Errorf("expected b %d; got %d", 1, len(nodes))
-	} else {
-		if html := nodes[0].Readable(); html != "<b>The Dormouse's story</b>" {
-			t.Errorf("expected html %q; got %q", "<b>The Dormouse's story</b>", html)
-		}
+	} else if html := nodes[0].Readable(); html != "<b>The Dormouse's story</b>" {
+		t.Errorf("expected html %q; got %q", "<b>The Dormouse's story</b>", html)
 	}
 	if nodes := soup.FindAll(0, Tag(regexp.MustCompile("^b"))); len(nodes) != 2 {
 		t.Errorf("expected ^b %d; got %d", 2, len(nodes))
@@ -39,12 +37,7 @@ func TestFilter(t *testing.T) {
 	if nodes := soup.FindAll(0, Tags("a", "b")); len(nodes) != 4 {
 		t.Errorf("expected nodes %d; got %d", 4, len(nodes))
 	} else {
-		expected := []string{
-			"<b>The Dormouse's story</b>",
-			`<a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>`,
-			`<a href="http://example.com/lacie" class="sister" id="link2">Lacie</a>`,
-			`<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>`,
-		}
+		expected := []string{"<b>The Dormouse's story</b>", elsie, lacie, tillie}
 		for i, node := range nodes {
 			if html := node.Readable(); html != expected[i] {
 				t.Errorf("expected html #%d %q; got %q", i, expected[i], html)
@@ -82,10 +75,7 @@ func TestFilter(t *testing.T) {
 	})); len(nodes) != 2 {
 		t.Errorf("expected nodes %d; got %d", 2, len(nodes))
 	} else {
-		expected := []string{
-			`<a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>`,
-			`<a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>`,
-		}
+		expected := []string{elsie, tillie}
 		for i, node := range nodes {
 			if html := node.Readable(); !strings.HasPrefix(html, expected[i]) {
 				t.Errorf("expected html #%d %q; got %q", i, expected[i], html)

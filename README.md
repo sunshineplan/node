@@ -155,7 +155,7 @@ type Attributes interface {
 
 // Finder represents a set of methods for finding nodes.
 type Finder interface {
-	// Find searches for a single node in the parse tree based on the specified find method and filters.
+	// Find searches for the first matched node in the parse tree based on the specified find method and filters.
 	Find(FindMethod, TagFilter, ...Filter) Node
 
 	// FindN searches for up to n nodes in the parse tree based on the specified find method and filters.
@@ -164,7 +164,7 @@ type Finder interface {
 	// FindAll searches for all nodes in the parse tree based on the specified find method and filters.
 	FindAll(FindMethod, TagFilter, ...Filter) []Node
 
-	// FindString searches for a single text node in the parse tree based on the specified find method and filters.
+	// FindString searches for the first matched text node in the parse tree based on the specified find method and filters.
 	FindString(FindMethod, StringFilter) TextNode
 
 	// FindStringN searches for up to n text nodes in the parse tree based on the specified find method and filters.
@@ -172,6 +172,25 @@ type Finder interface {
 
 	// FindAllString searches for all text nodes in the parse tree based on the specified find method and filters.
 	FindAllString(FindMethod, StringFilter) []TextNode
+
+	// CSS selectors support
+
+	// Select searches for the first matched node in the parse tree based on the css selector.
+	// Will panics if the selector cannot be parsed.
+	Select(string) Node
+
+	// SelectAll searches for all nodes in the parse tree based on the css selector.
+	// Will panics if the selector cannot be parsed.
+	SelectAll(string) []Node
+
+	// xpath support
+
+	// XPath searches for all node that matches by the specified XPath expr. Will panics if the expression cannot be parsed.
+	XPath(string) []Node
+
+	// Evaluate returns the result of the xpath expression.
+	// The result type of the expression is one of the follow: bool, float64, string, *xpath.NodeIterator.
+	Evaluate(string) (any, error)
 }
 
 // FindMethod represents the method used to search for nodes in the parse tree.
@@ -222,6 +241,13 @@ type StringFilter interface {
 	IsString() bool
 }
 ```
+
+## Credits
+
+This repo relies on the following third-party projects:
+
+  * [ericchiang/css](https://github.com/ericchiang/css)
+  * [antchfx/xpath](https://github.com/antchfx/xpath)
 
 ## License
 

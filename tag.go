@@ -16,6 +16,8 @@ var (
 	B      = Tag("b")
 	Body   = Tag("body")
 	Div    = Tag("div")
+	Em     = Tag("em")
+	Form   = Tag("form")
 	H1     = Tag("h1")
 	H2     = Tag("h2")
 	Head   = Tag("head")

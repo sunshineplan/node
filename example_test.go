@@ -19,13 +19,19 @@ func ExampleAttr() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if nodes := node.FindAll(0, nil, Attr("name", "email")); len(nodes) != 1 {
+	if nodes := node.SelectAll(`[name="email"]`); len(nodes) != 1 {
+		log.Fatalf("expected nodes %d; got %d", 1, len(nodes))
+	} else {
+		fmt.Println(nodes[0].Readable())
+	}
+	if nodes := node.XPath(`//*[@name="email"]`); len(nodes) != 1 {
 		log.Fatalf("expected nodes %d; got %d", 1, len(nodes))
 	} else {
 		fmt.Println(nodes[0].Readable())
 	}
 	// Output:
 	// <div data-foo="value">foo!</div>
+	// <input name="email"/>
 	// <input name="email"/>
 }
 
