@@ -2,8 +2,8 @@ github.com/antchfx/htmlquery v1.3.2 h1:85YdttVkR1rAY+Oiv/nKI4FCimID+NXhDn82kz3mE
 github.com/antchfx/htmlquery v1.3.2/go.mod h1:1mbkcEgEarAokJiWhTfr4hR06w/q2ZZjnYLrDt6CTUk=
 github.com/antchfx/xpath v1.3.1 h1:PNbFuUqHwWl0xRjvUPjJ95Agbmdj2uzzIwmQKgu4oCk=
 github.com/antchfx/xpath v1.3.1/go.mod h1:i54GszH55fYfBmoZXapTHN8T8tkcHfRgLyVwwqzXNcs=
-github.com/ericchiang/css v1.3.0 h1:e0vS+vpujMjtT3/SYu7qTHn1LVzXWcLCCDjlfq3YlLY=
-github.com/ericchiang/css v1.3.0/go.mod h1:sVSdL+MFR9Q4cKJMQzpIkHIDOLiK+7Wmjjhq7D+MubA=
+github.com/ericchiang/css v1.4.0 h1:OlkWiPGHZpWIthKa2YBSAh00XwOT1PUtaoye9bKkTqw=
+github.com/ericchiang/css v1.4.0/go.mod h1:sVSdL+MFR9Q4cKJMQzpIkHIDOLiK+7Wmjjhq7D+MubA=
 github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da h1:oI5xCqsCo564l8iNU+DwB5epxmsaqB+rhGL0m5jtYqE=
 github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da/go.mod h1:cIg4eruTrX1D+g88fzRXU5OdNfaM+9IcxsU14FzY7Hc=
 github.com/google/go-cmp v0.5.6 h1:BKbKCqvP6I+rmFHt06ZmyQtvB8xAkWdhFyr0ZUNZcxQ=
