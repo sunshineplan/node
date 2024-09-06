@@ -6,10 +6,10 @@ require (
 	github.com/antchfx/htmlquery v1.3.2
 	github.com/antchfx/xpath v1.3.1
 	github.com/ericchiang/css v1.4.0
-	golang.org/x/net v0.28.0
+	golang.org/x/net v0.29.0
 )
 
 require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
-	golang.org/x/text v0.17.0 // indirect
+	golang.org/x/text v0.18.0 // indirect
 )
