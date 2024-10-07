@@ -1,7 +1,8 @@
 github.com/antchfx/htmlquery v1.3.2 h1:85YdttVkR1rAY+Oiv/nKI4FCimID+NXhDn82kz3mEvs=
 github.com/antchfx/htmlquery v1.3.2/go.mod h1:1mbkcEgEarAokJiWhTfr4hR06w/q2ZZjnYLrDt6CTUk=
-github.com/antchfx/xpath v1.3.1 h1:PNbFuUqHwWl0xRjvUPjJ95Agbmdj2uzzIwmQKgu4oCk=
 github.com/antchfx/xpath v1.3.1/go.mod h1:i54GszH55fYfBmoZXapTHN8T8tkcHfRgLyVwwqzXNcs=
+github.com/antchfx/xpath v1.3.2 h1:LNjzlsSjinu3bQpw9hWMY9ocB80oLOWuQqFvO6xt51U=
+github.com/antchfx/xpath v1.3.2/go.mod h1:i54GszH55fYfBmoZXapTHN8T8tkcHfRgLyVwwqzXNcs=
 github.com/ericchiang/css v1.4.0 h1:OlkWiPGHZpWIthKa2YBSAh00XwOT1PUtaoye9bKkTqw=
 github.com/ericchiang/css v1.4.0/go.mod h1:sVSdL+MFR9Q4cKJMQzpIkHIDOLiK+7Wmjjhq7D+MubA=
 github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da h1:oI5xCqsCo564l8iNU+DwB5epxmsaqB+rhGL0m5jtYqE=
