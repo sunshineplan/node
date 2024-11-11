@@ -2,6 +2,7 @@ package node
 
 import (
 	"io"
+	"iter"
 	"strings"
 
 	"golang.org/x/net/html"
@@ -91,6 +92,16 @@ type HtmlNode interface {
 	PrevNodes() []Node
 	// NextNodes return all of the nodes that was parsed after this node.
 	NextNodes() []Node
+
+	// AncestorNodes returns an iterator over the ancestors of n,
+	// starting with n.Parent.
+	AncestorNodes() iter.Seq[Node]
+	// ChildNodes returns an iterator over the immediate children of n,
+	// starting with n.FirstChild.
+	ChildNodes() iter.Seq[Node]
+	// DescendantNodes returns an iterator over all nodes recursively
+	// beneath n, excluding n itself. Nodes are visited in depth-first preorder.
+	DescendantNodes() iter.Seq[Node]
 
 	// Finder includes a set of find methods.
 	Finder
@@ -213,34 +224,23 @@ func (n *htmlNode) NextNode() Node {
 }
 
 func (n *htmlNode) Parents() (parents []Node) {
-	parent := n.Parent()
-	for parent != nil {
+	for parent := range n.AncestorNodes() {
 		parents = append(parents, parent)
-		parent = parent.Parent()
 	}
 	return
 }
 
 func (n *htmlNode) Children() (children []Node) {
-	child := n.FirstChild()
-	for child != nil {
+	for child := range n.ChildNodes() {
 		children = append(children, child)
-		child = child.NextSibling()
 	}
 	return
 }
 
 func (n *htmlNode) Descendants() (nodes []Node) {
-	var f func(Node)
-	f = func(node Node) {
-		if node.Raw() != n.Raw() {
-			nodes = append(nodes, node)
-		}
-		for node := node.FirstChild(); node != nil; node = node.NextSibling() {
-			f(node)
-		}
+	for node := range n.DescendantNodes() {
+		nodes = append(nodes, node)
 	}
-	f(n.ToNode())
 	return
 }
 
@@ -278,6 +278,36 @@ func (n *htmlNode) NextNodes() (nextNodes []Node) {
 		nextNode = nextNode.NextNode()
 	}
 	return
+}
+
+func (n *htmlNode) AncestorNodes() iter.Seq[Node] {
+	return func(yield func(Node) bool) {
+		for c := range n.Ancestors() {
+			if !yield(NewNode(c)) {
+				return
+			}
+		}
+	}
+}
+
+func (n *htmlNode) ChildNodes() iter.Seq[Node] {
+	return func(yield func(Node) bool) {
+		for c := range n.Node.ChildNodes() {
+			if !yield(NewNode(c)) {
+				return
+			}
+		}
+	}
+}
+
+func (n *htmlNode) DescendantNodes() iter.Seq[Node] {
+	return func(yield func(Node) bool) {
+		for c := range n.Node.Descendants() {
+			if !yield(NewNode(c)) {
+				return
+			}
+		}
+	}
 }
 
 type node struct {
