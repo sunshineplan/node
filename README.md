@@ -137,6 +137,16 @@ type HtmlNode interface {
 	// NextNodes return all of the nodes that was parsed after this node.
 	NextNodes() []Node
 
+	// AncestorNodes returns an iterator over the ancestors of n,
+	// starting with n.Parent.
+	AncestorNodes() iter.Seq[Node]
+	// ChildNodes returns an iterator over the immediate children of n,
+	// starting with n.FirstChild.
+	ChildNodes() iter.Seq[Node]
+	// DescendantNodes returns an iterator over all nodes recursively
+	// beneath n, excluding n itself. Nodes are visited in depth-first preorder.
+	DescendantNodes() iter.Seq[Node]
+
 	// Finder includes a set of find methods.
 	Finder
 }
