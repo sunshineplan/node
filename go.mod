@@ -6,7 +6,7 @@ require (
 	github.com/antchfx/htmlquery v1.3.3
 	github.com/antchfx/xpath v1.3.3
 	github.com/ericchiang/css v1.4.0
-	golang.org/x/net v0.32.0
+	golang.org/x/net v0.33.0
 )
 
 require (
