@@ -3,7 +3,7 @@ module github.com/sunshineplan/node
 go 1.23
 
 require (
-	github.com/antchfx/htmlquery v1.3.3
+	github.com/antchfx/htmlquery v1.3.4
 	github.com/antchfx/xpath v1.3.3
 	github.com/ericchiang/css v1.4.0
 	golang.org/x/net v0.33.0
