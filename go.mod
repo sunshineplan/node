@@ -1,6 +1,7 @@
 module github.com/sunshineplan/node
 
-go 1.23
+go 1.24
+
 require (
 	github.com/antchfx/htmlquery v1.3.4
 	github.com/antchfx/xpath v1.3.3
