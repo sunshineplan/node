@@ -4,7 +4,7 @@ go 1.24
 
 require (
 	github.com/antchfx/htmlquery v1.3.4
-	github.com/antchfx/xpath v1.3.3
+	github.com/antchfx/xpath v1.3.4
 	github.com/ericchiang/css v1.4.0
 	golang.org/x/net v0.38.0
 )
